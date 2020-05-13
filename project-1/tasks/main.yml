@@ -1,0 +1,7 @@
+---
+# tasks file for project-1
+- import_tasks: install_nginx.yml
+- import_tasks: configure_mysql-server.yml
+- import_tasks: configure_wordpress.yml
+- import_tasks: configure_nginx_with_wp.yml
+

@@ -1,0 +1,6 @@
+        - hosts: project-1
+          gather_facts: false
+          tasks:
+                  - import_role:
+                          name: project-1
+

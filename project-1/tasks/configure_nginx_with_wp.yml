@@ -1,0 +1,31 @@
+- name: Copying WORDPRESS configuraton file for NGINX
+  become: true
+  copy:
+          src: files/wordpress.conf
+          dest: /etc/nginx/sites-available/wordpress.conf
+
+- name: removing the default configuration file of NGINX
+  file:
+          path: /etc/nginx/sites-enabled/default
+          state: absent
+
+- name: Addinng the jinja2 configuration file for WORDPRESS
+  become: true
+  template:
+          src: templates/wp-config.php.j2
+          dest: /var/www/html/wordpress/public_html/wp-config.php
+
+- name: Creatting the link of sites-available file
+  become: true
+  file:
+          src: /etc/nginx/sites-available/wordpress.conf
+          dest: /etc/nginx/sites-enabled/wordpress.conf
+          state: link
+- name: restart nginx
+  become: true
+  service:
+          name: nginx
+          state: restarted
+          enabled: yes
+         
+

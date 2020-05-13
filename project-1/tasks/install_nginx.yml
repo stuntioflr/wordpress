@@ -1,0 +1,30 @@
+- name: Installing nginx Package
+  apt: name=nginx state=latest
+
+- name: starting nginx
+  service:
+          name: nginx
+          state: restarted
+          enabled: yes
+
+- name: Installing MySQL-Server
+  apt: name={{ item }} state=latest 
+  with_items:
+          - mysql-server
+          - libmysqlclient-dev
+          - python-mysqldb
+
+- name: Installing php-fpm packages
+  apt: name={{ item }} state=latest
+  with_items:
+          - php7.2
+          - php7.2-cli
+          - php7.2-fpm
+          - php7.2-mysql
+          - php7.2-json 
+          - php7.2-opcache 
+          - php7.2-mbstring 
+          - php7.2-xml 
+          - php7.2-gd 
+          - php7.2-curl
+

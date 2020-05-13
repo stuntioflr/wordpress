@@ -1,0 +1,41 @@
+- name: creating the directory
+  command: mkdir -p /var/www/html/wordpress/public_html
+
+- name: Downloading the wordpress
+  command: wget https://wordpress.org/latest.tar.gz
+  args:
+          chdir: /var/www/html/wordpress/public_html
+
+- name: Unzippping the wordpress
+  unarchive:
+          src: /var/www/html/wordpress/public_html/latest.tar.gz
+          dest: /var/www/html/wordpress/public_html
+
+- name: Removing the old files and copying to thr WORDPRESS root directory
+  command: /bin/mv /var/www/html/wordpress/public_html/wordpress/{{ item }} /var/www/html/wordpress/public_html/
+  with_items:
+          - index.php
+          - license.txt
+          - readme.html
+          - wp-activate.php
+          - wp-admin
+          - wp-blog-header.php
+          - wp-comments-post.php
+          - wp-config-sample.php
+          - wp-content
+          - wp-cron.php
+          - wp-includes
+          - wp-links-opml.php
+          - wp-load.php
+          - wp-login.php
+          - wp-mail.php
+          - wp-settings.php
+          - wp-signup.php
+          - wp-trackback.php
+          - xmlrpc.php
+
+- name: Removing the wordpressfile
+  file:
+          path: /var/www/html/wordpress/public_html/wordpress
+          state: absent
+
